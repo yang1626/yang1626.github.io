@@ -1,0 +1,166 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="google-site-verification" content="" />
+  
+  <title>ASP.NET 开发规范</title>
+  <meta name="author" content="NeverMore">
+  <meta name="description" content="C# Javascript">
+  
+  
+  <meta property="og:title" content="ASP.NET 开发规范"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="NeverMore&#39;s Blog"/>
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="NeverMore&#39;s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <a id="top"></a>
+  <div id="main">
+    <div class="behind">
+      <a href="/" class="back black-color">
+        <svg class="i-close" viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M2 30 L30 2 M30 30 L2 2"></path>
+        </svg>
+      </a>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="main-ctnr">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        ASP.NET 开发规范
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2018-07-11T01:39:23.682Z">
+<svg class="i-calendar" viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  2018-07-11
+</time>
+
+
+
+
+
+
+
+    </div>
+    <hr>
+    
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Entity-Framework"><span class="toc-text">Entity Framework</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ASP-NET-MVC"><span class="toc-text">ASP.NET MVC</span></a></li></ol>
+    
+    <div class="picture-container">
+      
+    </div>
+    <h1 id="Entity-Framework"><a href="#Entity-Framework" class="headerlink" title="Entity Framework"></a>Entity Framework</h1><ol>
+<li><p>在ASP.NET Core MVC程序中，对于EF DbContext的访问通过依赖注入实现  </p>
+<blockquote>
+<p>In an ASP.NET Core MVC application, access to  data context      objects is managed using dependency  injection<br>– Pro Entity Framework Core 2 for ASP.NET Core  MVC (Page 65)  </p>
+</blockquote>
+</li>
+<li><p>数据库迁移（Migration）  </p>
+<ul>
+<li>dotnet ef migrations add Initial (初始化数据库sql脚本)</li>
+<li>dotnet ef database update （执行sql脚本，更新/创建 数据库）</li>
+</ul>
+</li>
+<li><p>IEnumberable 与 IQueryable<br>IEnumberable 操作内存中的集合，所以EF中对IEnumberable的操作都会转化为对整个数据集合的操作（即任何操作都会触发查询表中所有数据），IQueryable 是EF对linq基于数据库数据的实现，查询命令会转换成响应的sql，然后进行查询</p>
+<blockquote>
+<p>LINQ is implemented as a set of extension methods that operate   on objects that implement the<br> IEnumerable<t> interface. This interface represents a sequence of objects, and it is implemented by the<br> generic collection classes and arrays.<br> Entity Framework Core includes a duplicate set of LINQ extension methods that operate on objects that<br> implement the IQueryable<t> interface. This interface represents a database query, and these duplicate<br> methods means that operations such as Count can be performed as easily on data stored in the database as<br> on in-memory objects<br>–Pro Entity Framework Core 2 for ASP.NET Core  MVC (Page 72)    </t></t></p>
+</blockquote>
+</li>
+</ol>
+<h1 id="ASP-NET-MVC"><a href="#ASP-NET-MVC" class="headerlink" title="ASP.NET MVC"></a>ASP.NET MVC</h1><ul>
+<li><p>列表无数据展示用CSS伪类:only-child</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"row placeholder"</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"col text-center p-2"</span>&gt;</span>No Data<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      @foreach (Product p in Model)</span><br><span class="line">      &#123;</span><br><span class="line">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"row p-2"</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"col"</span>&gt;</span>@p.Name<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"col"</span>&gt;</span>@p.Category<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"col text-right"</span>&gt;</span>@p.PurchasePrice<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"col text-right"</span>&gt;</span>@p.RetailPrice<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"col"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      &#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="selector-tag">style</span>&gt;</span><br><span class="line">     <span class="selector-class">.placeholder</span> &#123;</span><br><span class="line">         <span class="attribute">visibility</span>: collapse;</span><br><span class="line">         <span class="attribute">display</span>: none</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">         <span class="selector-class">.placeholder</span><span class="selector-pseudo">:only-child</span> &#123;</span><br><span class="line">             <span class="attribute">visibility</span>: visible;</span><br><span class="line">             <span class="attribute">display</span>: flex</span><br><span class="line">         &#125;</span><br><span class="line"> &lt;/style&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/:only-child" target="_blank" rel="noopener">only-child</a></p>
+</blockquote>
+</li>
+</ul>
+
+
+  </article>
+  </script>
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>
+  <div class="busuanzi center">
+    page PV:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    site PV:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    site UV:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+    
+
+
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot">
+    <div class="firstrow">
+        <a href="#top" target="_self">
+        <svg class="i-caret-right" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M10 30 L26 16 10 2 Z"></path>
+        </svg>
+        </a>
+        © NeverMore 20xx-2018
+    </div>
+    <div class="secondrow">
+        <a href="https://github.com/gaoryrt/hexo-theme-pln">
+        Theme Pln
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="/js/search.min.js"></script>
+<script type="text/javascript">
+
+// disqus scripts
+
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+var path = "/search.xml";
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script>
+
+</body>
+</html>
