@@ -18,7 +18,7 @@
 <meta property="og:site_name" content="NeverMore&#39;s Blog">
 <meta property="og:description" content="创建/访问数据库“There is already an object named  in the database” Exception通常发生在删除迁移文件、重建然后应用于数据的时候，这个问题通常发生在开发环境，可以执行以下命令，（删除数据库和数据），这种操作不应该用于生产环境 12dotnet ef database drop --forcedotnet ef database update">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-12T07:12:37.371Z">
+<meta property="og:updated_time" content="2018-07-16T09:02:10.793Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="EF 常见问题">
 <meta name="twitter:description" content="创建/访问数据库“There is already an object named  in the database” Exception通常发生在删除迁移文件、重建然后应用于数据的时候，这个问题通常发生在开发环境，可以执行以下命令，（删除数据库和数据），这种操作不应该用于生产环境 12dotnet ef database drop --forcedotnet ef database update">
@@ -140,6 +140,8 @@
 <p>In an ASP.NET Core MVC application, Entity Framework Core expects a new context object to be created for<br>each HTTP request. A common problem, however, is to keep hold of context objects and try to use them for<br>subsequent requests.<br>The problem this presents is that each Entity Framework Core context object keeps track of the objects<br>it has created to use a cache and to detect changes. Keeping context objects and reusing them can produce<br>unexpected results because the data is out of date or incomplete. Even though you may have an aversion to<br>creating objects for a single request, it is already the pattern used by the rest of the application—the MVC<br>framework creates new controller and view objects for each HTTP request—and it is how Entity Framework<br>Core expects its context objects to be used.</p>
 </blockquote>
 <h1 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a>数据存储</h1><h2 id="部分属性未存储"><a href="#部分属性未存储" class="headerlink" title="部分属性未存储"></a>部分属性未存储</h2><p>如果一个对象只有部分属性被存储到了数据库，则需要确定你只使用了属性，并且这些属性都有get和set,Entity Framework默认会忽略方法和字段。</p>
+<h2 id="“Instance-of-Entity-Type-Cannot-be-Tracked”-Exception"><a href="#“Instance-of-Entity-Type-Cannot-be-Tracked”-Exception" class="headerlink" title="“Instance of Entity Type Cannot be Tracked” Exception"></a>“Instance of Entity Type Cannot be Tracked” Exception</h2><p>这个异常是在查询了数据库中的相同对象之后使用EF update方法时使用了MVC模型绑定的对象时发生的。数据库上下文追踪它创建的对象来进行改变侦测，当在出现冲突的对象（由MVC模型绑定生成）时,EF无法处理,为了避免这个问题,复制MVC对象的属性到EF生成的实体对象上,然后进行更新。</p>
+<h2 id="“Property-Has-a-Temporary-Value”-Exception"><a href="#“Property-Has-a-Temporary-Value”-Exception" class="headerlink" title="“Property Has a Temporary Value” Exception"></a>“Property Has a Temporary Value” Exception</h2><p>执行删除操作时，未设置要删除对象主键</p>
 
     </div>
   </section>
