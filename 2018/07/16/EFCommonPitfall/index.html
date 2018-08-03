@@ -18,7 +18,7 @@
 <meta property="og:site_name" content="NeverMore&#39;s Blog">
 <meta property="og:description" content="查询 对内存中的数据集合进行范围查询,使用Contains，不使用Any使用Contains会转化为in 子查询，使用Any则会对全表进行查询  使用Contains123456public void GetAll(Product[] products)&amp;#123;    Dictionary&amp;lt;long, Product&amp;gt; data = products.ToDictionary(p">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-16T08:37:44.479Z">
+<meta property="og:updated_time" content="2018-08-03T06:09:44.124Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="EF 常见的坑">
 <meta name="twitter:description" content="查询 对内存中的数据集合进行范围查询,使用Contains，不使用Any使用Contains会转化为in 子查询，使用Any则会对全表进行查询  使用Contains123456public void GetAll(Product[] products)&amp;#123;    Dictionary&amp;lt;long, Product&amp;gt; data = products.ToDictionary(p">
@@ -76,7 +76,7 @@
         <ul class="search-result">
             
               <div class="tags">
-                   <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ASP-NET-Core/">ASP.NET Core</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EF-Core/">EF Core</a></li></ul>
+                   <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ASP-NET-Core/">ASP.NET Core</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EF-Core/">EF Core</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tools/">tools</a></li></ul>
                 </div>
             
         </ul>
@@ -138,7 +138,8 @@
 </blockquote>
 </li>
 </ul>
-
+<h2 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h2><p>在执行修改的时候如果使用了Include加载了相关的导航属性并且把它设置为null，则会导致修改的对象或对象集合被删除，而不是修改</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var product=context.Products.Inclu(p =&gt; p.Category).FirstOrDefau(p=&gt;p.Name== &quot;BasketBall&quot;);</span><br><span class="line">product.Category = null;</span><br><span class="line">context.SaveChanges();</span><br><span class="line">// product 会被从Product表悄悄删除，不会执行修改操作，不会有任何报错</span><br></pre></td></tr></table></figure>
     </div>
   </section>
 
@@ -164,7 +165,7 @@
       
         <h3>TAGS</h3>        
         <div class="tags">
-             <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ASP-NET-Core/">ASP.NET Core</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EF-Core/">EF Core</a></li></ul>
+             <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ASP-NET-Core/">ASP.NET Core</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EF-Core/">EF Core</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tools/">tools</a></li></ul>
           </div>
       
     </div>
